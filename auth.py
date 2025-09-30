@@ -4,7 +4,7 @@ import json
 import hmac
 import getpass
 
-# Pafd zur Datei in der die Nutzerdaten gepspeichert werden sollen
+# Pfad zur Datei in der die Nutzerdaten gepspeichert werden sollen
 USER_DATA_FILE = "users.json"
 
 # Iterationen und Hash-Algorithmus fuer PBKDF2
@@ -17,7 +17,7 @@ def hash_password(password: str) -> tuple[str, str]:
     Uebergeben wird das eingegbene Passwort.
     Zurueckgegeben wird das Tupel mit dem Salt und dem abgeleiteten Schuessel (beides im Hexadezimalformat).
     """
-    # Kryptografisch sicheren Salt generieren mit Hilfe von Betriebssystem
+    # Kryptografisch sicheren Salt generieren mit Hilfe von Betriebssystem. Länge 16 Byte bzw. 128 Bit
     salt = os.urandom(16)
     
     # PBKDF2 anwenden mit Standard-Bibliothek Hashlib: hashlib.pbkdf2_hmac(hash_name, password, salt, iterations, dklen=None)
@@ -169,4 +169,5 @@ def main():
             print("\nUngültige Eingabe, bitte erneut versuchen.")
 
 if __name__ == "__main__":
+
     main()
