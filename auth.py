@@ -84,7 +84,8 @@ def register_user():
     if username in users:
         print("Dieser Nutzer existiert bereits. Bitte wähle einen anderen Namen.")
         return
-        
+
+    # getpass damit das Passwort nicht angezeigt wird
     password = getpass.getpass("Passwort: ")
     password_confirm = getpass.getpass("Passwort bestätigen: ")
     
@@ -171,3 +172,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
