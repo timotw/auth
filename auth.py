@@ -41,7 +41,7 @@ def verify_password(provided_password: str, salt_hex: str, stored_hash_hex: str)
     salt = bytes.fromhex(salt_hex)
     stored_hash = bytes.fromhex(stored_hash_hex)
     
-    # PBKDF2 mit gleichen Parametern
+    # PBKDF2 auf angegebenem Passwort mit gleichen Parametern
     provided_hash = hashlib.pbkdf2_hmac(
         HASH_ALGORITHM,
         provided_password.encode('utf-8'),
@@ -59,7 +59,8 @@ def load_users() -> dict:
     Gibt die Daten als dictionary zurueck
     """
     try:
-        with open(USER_DATA_FILE, 'r') as f:
+        # Datei wird nur gelesen -> r = read
+        with open(USER_DATA_FILE, 'r') as f: 
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         # Leeres dictionary, falls Datei nicht gelesen werden kann
@@ -69,7 +70,8 @@ def save_users(users: dict):
     """
     Speichert die Nutzerdaten in der JSON-Datei
     """
-    with open(USER_DATA_FILE, 'w') as f:
+    # Datei wird verändert -> w = write
+    with open(USER_DATA_FILE, 'w') as f: 
         json.dump(users, f, indent=4)
 
 def register_user():
@@ -105,7 +107,6 @@ def register_user():
         "salt": salt_hex,
         "hash": hashed_password_hex
     }
-    
     save_users(users)
     print(f"\nNutzer '{username}' wurde erfolgreich registriert!")
 
@@ -136,7 +137,7 @@ def login_user():
     )
     
     if is_correct:
-        print(f"\nAnmeldung erfolgreich. Willkomen, {username}! ")
+        print(f"\nAnmeldung erfolgreich. Willkomen, {username}!")
     else:
         print("\nNutzername oder Passwort ist nicht korrekt.")
 
@@ -172,4 +173,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
